@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,3 +30,11 @@ jobs:
         with:
           name: MITS-Parent-apk
           path: MITS-Parent.apk
+      - name: Publish APK as a download link
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: MITS Parent app (latest build)
+          body: Tap MITS-Parent.apk below on an Android phone to download and install.
+          files: MITS-Parent.apk
+          make_latest: true
